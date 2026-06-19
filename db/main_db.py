@@ -47,11 +47,17 @@ def update_task(task_id, new_task=None, completed=None):
     conn.commit()
     conn.close()
 
-    def delete_task(task_id):
-        with sqlite3.connect(path_db) as conn:
-            cursor = conn.cursor()
-            cursor.execute(queries.delete_task, (task_id,))
 
+def delete_task(task_id):
+    with sqlite3.connect(path_db) as conn:
+        cursor = conn.cursor()
+        cursor.execute(queries.delete_task, (task_id,))
+
+
+def delete_completed_tasks():
+    with sqlite3.connect(path_db) as conn:
+        cursor = conn.cursor()
+        cursor.execute(queries.delete_completed_tasks)
 
 def get_tasks(filter_type=None):
     conn = sqlite3.connect(path_db)
